@@ -1,15 +1,15 @@
-<strong>Tour Management System - Live</strong>
+<strong>Tour Management System - Live</strong><br>
 <br>
-Laravel: 10.48.29
-PHP: 8.1.0
-DB: MySQL -> PostGres (migration issues fixed for live hosting)
-Telescope not included
+Laravel: 10.48.29<br>
+PHP: 8.1.0<br>
+DB: MySQL -> PostGres (migration issues fixed for live hosting)<br>
+Telescope not included<br>
 <br>
-GitHub Repo for cloning (includes Telescope): https://github.com/udara-neminda-chandrawansa/tour-mgmt-laravel-render
-Live: https://tour-mgmt-laravel-render.onrender.com/
+GitHub Repo for cloning (includes Telescope): https://github.com/udara-neminda-chandrawansa/tour-mgmt-laravel-render<br>
+Live: https://tour-mgmt-laravel-render.onrender.com/<br>
 <br>
-admin@gmail.com - 12345678
-agent1@gmail.com - 12345678
+admin@gmail.com - 12345678<br>
+agent1@gmail.com - 12345678<br>
 <br>
 ===========================================================
 
