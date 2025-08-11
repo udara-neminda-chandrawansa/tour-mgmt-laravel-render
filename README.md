@@ -1,3 +1,18 @@
+<strong>Tour Management System - Live</strong>
+<br>
+Laravel: 10.48.29
+PHP: 8.1.0
+DB: MySQL -> PostGres (migration issues fixed for live hosting)
+Telescope not included
+<br>
+GitHub Repo for cloning (includes Telescope): https://github.com/udara-neminda-chandrawansa/tour-mgmt-laravel-render
+Live: https://tour-mgmt-laravel-render.onrender.com/
+<br>
+admin@gmail.com - 12345678
+agent1@gmail.com - 12345678
+<br>
+===========================================================
+
 # Used "Laravel 11 with a Docker PHP Image" as template
 
 A demo repo for deploying a Laravel PHP application on [Render](https://render.com) using Docker. You can follow the getting started tutorial [here](https://render.com/docs/deploy-php-laravel-docker).
