@@ -1,77 +1,84 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tour Management System | Authentication</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
+<body>
+    <div class="max-w-lg mx-auto p-4 flex flex-col items-center justify-center min-h-screen">
 
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+        <h1 class="text-3xl mb-4">Register</h1>
 
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+        <form id="apiRegisterForm" class="w-full space-y-4 bg-base-100 p-6 rounded-lg shadow-lg">
+            <fieldset class="fieldset w-full">
+                <legend class="fieldset-legend">Username</legend>
+                <input type="text" class="input w-full" name="name" :value="old('name')" required autofocus autocomplete="name" placeholder="Type here" />
+            </fieldset>
+            <fieldset class="fieldset">
+                <legend class="fieldset-legend">Email</legend>
+                <input type="email" class="input w-full" name="email" :value="old('email')" required autocomplete="username" placeholder="Type here" />
+            </fieldset>
+            <fieldset class="fieldset">
+                <legend class="fieldset-legend">Password</legend>
+                <input type="password" class="input w-full" name="password" required autocomplete="new-password" placeholder="Type here" />
+            </fieldset>
+            <fieldset class="fieldset">
+                <legend class="fieldset-legend">Confirm Password</legend>
+                <input type="password" class="input w-full" name="password_confirmation" required autocomplete="new-password" placeholder="Type here" />
+            </fieldset>
+            <fieldset class="fieldset">
+                <legend class="fieldset-legend">Role</legend>
+                <select name="role" id="role" class="select w-full">
+                    <option value="admin">Admin</option>
+                    <option value="agent">Agent</option>
+                </select>
+            </fieldset>
+            <button class="btn w-full">
+                Register
+            </button>
+        </form>
     </div>
-</div>
-@endsection
+
+    <script>
+        // Handle the register form submission
+        document.getElementById('apiRegisterForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const form = e.target;
+            const response = await fetch('/api/auth/register', {
+                method: 'POST'
+                , headers: {
+                    'Content-Type': 'application/json'
+                    , 'Accept': 'application/json'
+                , }
+                , body: JSON.stringify({
+                    name: form.name.value
+                    , email: form.email.value
+                    , password: form.password.value
+                    , password_confirmation: form.password_confirmation.value
+                    , role: form.role.value
+                })
+            });
+
+            const data = await response.json();
+            console.log(data);
+
+            if (data.token) {
+                alert(data.message + " | Token: " + data.token);
+                localStorage.setItem('api_token', data.token); // for logging out later
+                window.location.href = '/my-dashboard';
+            } else {
+                alert("Registration failed: " + (data.message || 'Unknown error'));
+            }
+        });
+
+    </script>
+
+</body>
+
+</html>
