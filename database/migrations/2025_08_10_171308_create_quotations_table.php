@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('quotations', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uniqueId')->default('');
+            $table->uuid('uniqueId');
             $table->foreignId('itinerary_id')->constrained('itineraries')->onDelete('cascade');
             $table->string('title');
             $table->decimal('price_per_person', 10, 2);
